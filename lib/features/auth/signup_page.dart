@@ -1,69 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'signup_page.dart';
+import 'login_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  bool isLoading = false;
-
-  Future<void> login() async {
-    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Email dan password wajib diisi")),
-      );
-      return;
-    }
-
-    setState(() => isLoading = true);
-
+  Future<void> signup() async {
     try {
-      await _auth.signInWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
 
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text("Login berhasil")));
-    } on FirebaseAuthException catch (e) {
-      String message = "Terjadi kesalahan";
+      ).showSnackBar(const SnackBar(content: Text("Signup berhasil")));
 
-      if (e.code == 'user-not-found') {
-        message = "Email tidak ditemukan";
-      } else if (e.code == 'wrong-password') {
-        message = "Password salah";
-      } else if (e.code == 'invalid-email') {
-        message = "Format email tidak valid";
-      }
-
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(message)));
+      Navigator.pop(context); // balik ke login
     } catch (e) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("Error: $e")));
     }
-
-    setState(() => isLoading = false);
-  }
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
   }
 
   @override
@@ -74,15 +42,14 @@ class _LoginPageState extends State<LoginPage> {
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // 🔼 Logo
                 Container(
                   height: 120,
                   width: 120,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
+                  decoration: const BoxDecoration(shape: BoxShape.circle),
+                  child: ClipOval(
                     child: Image.asset(
                       "images/logo-marketplace.png",
                       fit: BoxFit.cover,
@@ -93,12 +60,13 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 30),
 
                 const Text(
-                  "Selamat datang kembali",
+                  "Create Account",
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
 
                 const SizedBox(height: 30),
 
+                // Email
                 TextField(
                   controller: emailController,
                   decoration: InputDecoration(
@@ -115,6 +83,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 16),
 
+                // Password
                 TextField(
                   controller: passwordController,
                   obscureText: true,
@@ -132,34 +101,37 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 25),
 
+                // Button
                 SizedBox(
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: isLoading ? null : login,
-                    child: isLoading
-                        ? const CircularProgressIndicator(color: Colors.white)
-                        : const Text("Login"),
+                    onPressed: signup,
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text(
+                      "Sign Up",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                 ),
 
                 const SizedBox(height: 20),
 
+                // 🔽 Sudah punya akun
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Belum ada akun? "),
+                    const Text("Udah ada akun? "),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignupPage(),
-                          ),
-                        );
+                        Navigator.pop(context);
                       },
                       child: const Text(
-                        "Gas dulu Sign Up",
+                        "Gas wak Login",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.blue,
