@@ -108,11 +108,13 @@ class _HomePageState extends State<HomePage> {
                     final item = products[index];
 
                     return ProductCard(
+                      docId: item.id,
                       image: item['image'],
                       name: item['name'],
                       price: "Rp ${item['price']}",
                       category: item['category'],
                       stock: item['stock'],
+                      rating: (item['rating'] ?? 0).toDouble(),
                       onTap: () {},
                     );
                   },

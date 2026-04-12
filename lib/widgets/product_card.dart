@@ -6,15 +6,19 @@ class ProductCard extends StatelessWidget {
   final String price;
   final String category;
   final int stock;
+  final String docId;
+  final double rating;
   final VoidCallback? onTap;
 
   const ProductCard({
     super.key,
+    required this.docId,
     required this.image,
     required this.name,
     required this.price,
     required this.category,
     required this.stock,
+    required this.rating,
     this.onTap,
   });
 
