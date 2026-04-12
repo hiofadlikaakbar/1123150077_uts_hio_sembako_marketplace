@@ -24,38 +24,33 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
+    return SizedBox(
+      height: 260,
+      child: Material(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            blurRadius: 8,
-            offset: const Offset(2, 4),
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Material(
-          color: Colors.white,
-          child: InkWell(
-            onTap: onTap,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /// IMAGE
-                AspectRatio(
-                  aspectRatio: 1.2,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: onTap,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 120,
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
                   child: Image.network(image, fit: BoxFit.cover),
                 ),
+              ),
 
-                /// CONTENT
-                Padding(
+              Expanded(
+                child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -75,7 +70,7 @@ class ProductCard extends StatelessWidget {
                         style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
-                          fontSize: 15,
+                          fontSize: 14,
                         ),
                       ),
 
@@ -85,51 +80,23 @@ class ProductCard extends StatelessWidget {
                         children: [
                           const Icon(
                             Icons.star,
-                            size: 16,
+                            size: 14,
                             color: Colors.orange,
                           ),
                           const SizedBox(width: 4),
                           Text(
                             rating.toString(),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      /// STOCK + CATEGORY
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Stok: $stock",
                             style: const TextStyle(fontSize: 12),
                           ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 2,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.black12,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Text(
-                              category,
-                              style: const TextStyle(fontSize: 10),
-                            ),
-                          ),
                         ],
                       ),
+
+                      const Spacer(),
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
