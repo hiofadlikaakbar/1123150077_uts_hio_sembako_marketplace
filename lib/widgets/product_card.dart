@@ -92,6 +92,30 @@ class ProductCard extends StatelessWidget {
                       ),
 
                       const Spacer(),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Stok: $stock",
+                            style: const TextStyle(fontSize: 11),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.black12,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              category,
+                              style: const TextStyle(fontSize: 10),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
