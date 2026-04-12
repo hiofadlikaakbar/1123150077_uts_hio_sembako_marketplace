@@ -128,7 +128,7 @@ class _SignupPageState extends State<SignupPage> {
                     const Text("Udah ada akun? "),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.pushReplacementNamed(context, '/login');
                       },
                       child: const Text(
                         "Gas wak Login",
