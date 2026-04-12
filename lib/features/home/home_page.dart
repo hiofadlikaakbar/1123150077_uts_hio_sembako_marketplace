@@ -11,6 +11,39 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+class _HomePageState extends State<HomePage> {
+  final TextEditingController searchController = TextEditingController();
+  String searchQuery = "";
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.blueAccent,
+        title: const Text(
+          "Semangat Mandiri Sembako",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushReplacementNamed(context, '/login');
+            },
+          ),
+        ],
+      ),
+
       body: Column(
         children: [
           /// 🔥 SEARCH BAR
