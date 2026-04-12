@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'features/auth/login_page.dart';
+import 'features/auth/signup_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: LoginPage());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+
+      // 👇 route awal
+      initialRoute: '/login',
+
+      // 👇 daftar route
+      routes: {
+        '/login': (context) => const LoginPage(),
+        '/signup': (context) => const SignupPage(),
+      },
+    );
   }
 }
