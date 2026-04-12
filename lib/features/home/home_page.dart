@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import '../../services/notification_services.dart';
 import '../../widgets/product_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,6 +19,12 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     searchController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    NotificationService.init();
   }
 
   @override
@@ -46,7 +52,6 @@ class _HomePageState extends State<HomePage> {
 
       body: Column(
         children: [
-          /// 🔥 SEARCH BAR
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
@@ -68,7 +73,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          /// 🔥 LIST PRODUCT
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
@@ -85,7 +89,6 @@ class _HomePageState extends State<HomePage> {
 
                 final allProducts = snapshot.data!.docs;
 
-                /// 🔥 FILTER SEARCH
                 final products = allProducts.where((item) {
                   final name = item['name'].toString().toLowerCase();
                   return name.contains(searchQuery);
