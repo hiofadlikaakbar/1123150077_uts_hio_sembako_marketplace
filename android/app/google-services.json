@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "608464027335",
+    "project_id": "marketplace-uts",
+    "storage_bucket": "marketplace-uts.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608464027335:android:0ef3e2801cf63968b9c8e2",
+        "android_client_info": {
+          "package_name": "com.hio.marketplace"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPmwFZU6KS5olY0palnK-vHiPmyT1gPPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
