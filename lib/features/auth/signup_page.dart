@@ -21,7 +21,6 @@ class _SignupPageState extends State<SignupPage> {
 
   Future<void> signup() async {
     try {
-      // 🔒 validasi password
       if (passwordController.text != confirmPasswordController.text) {
         ScaffoldMessenger.of(
           context,
@@ -29,14 +28,12 @@ class _SignupPageState extends State<SignupPage> {
         return;
       }
 
-      // 🔐 create user di Firebase Auth
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
           );
 
-      // 💾 simpan ke Firestore
       await _firestore.collection("users").doc(userCredential.user!.uid).set({
         "username": usernameController.text.trim(),
         "email": emailController.text.trim(),
@@ -65,7 +62,6 @@ class _SignupPageState extends State<SignupPage> {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
               children: [
-                
                 Container(
                   height: 110,
                   width: 110,
@@ -87,7 +83,6 @@ class _SignupPageState extends State<SignupPage> {
 
                 const SizedBox(height: 25),
 
-                // 👤 Username
                 TextField(
                   controller: usernameController,
                   decoration: InputDecoration(
@@ -104,4 +99,98 @@ class _SignupPageState extends State<SignupPage> {
 
                 const SizedBox(height: 16),
 
-             
+                TextField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    hintText: "Masukkan email",
+                    prefixIcon: const Icon(Icons.email),
+                    filled: true,
+                    fillColor: Colors.grey[100],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                TextField(
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: "Masukkan password",
+                    prefixIcon: const Icon(Icons.lock),
+                    filled: true,
+                    fillColor: Colors.grey[100],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                TextField(
+                  controller: confirmPasswordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: "Konfirmasi password",
+                    prefixIcon: const Icon(Icons.lock_outline),
+                    filled: true,
+                    fillColor: Colors.grey[100],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 25),
+
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: signup,
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text(
+                      "Sign Up",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Udah ada akun? "),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacementNamed(context, '/login');
+                      },
+                      child: const Text(
+                        "Gas wak Login",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
