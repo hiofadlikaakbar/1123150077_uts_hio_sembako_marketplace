@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'features/auth/login_page.dart';
 import 'features/auth/signup_page.dart';
+import 'features/splash/splash_screen.dart';
+import 'features/home/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,13 +28,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      // 👇 route awal
-      initialRoute: '/login',
+      // 🔥 GANTI ke splash
+      initialRoute: '/splash',
 
-      // 👇 daftar route
       routes: {
+        '/splash': (context) => const SplashScreen(),
         '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignupPage(),
+        '/home': (context) => const HomePage(),
       },
     );
   }
