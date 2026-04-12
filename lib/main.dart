@@ -14,8 +14,9 @@ Future<void> firebaseBackgroundHandler(RemoteMessage message) async {
   print("Background notif: ${message.notification?.title}");
 }
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyCQa8o5lQc8Izf1lPwxwcAkbI9Yt7Qwwro",
@@ -26,7 +27,19 @@ void main() async {
       appId: "1:608464027335:web:6b8f04fbb00fdbaeb9c8e2",
     ),
   );
+
   FirebaseMessaging.onBackgroundMessage(firebaseBackgroundHandler);
+
+  await FirebaseMessaging.instance.requestPermission(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print("Foreground notif: ${message.notification?.title}");
+  });
+
   runApp(const MyApp());
 }
 
@@ -38,7 +51,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      // 🔥 GANTI ke splash
+      /// splash screen pertama
       initialRoute: '/splash',
 
       routes: {
