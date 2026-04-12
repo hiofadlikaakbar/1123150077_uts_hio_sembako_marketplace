@@ -6,17 +6,12 @@ import 'features/auth/signup_page.dart';
 import 'features/splash/splash_screen.dart';
 import 'features/home/home_page.dart';
 
-/// 🔥 WAJIB: background handler harus top-level + entry point
-@pragma('vm:entry-point')
 Future<void> firebaseBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-
   print("Background notif: ${message.notification?.title}");
 }
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyCQa8o5lQc8Izf1lPwxwcAkbI9Yt7Qwwro",
@@ -27,19 +22,7 @@ Future<void> main() async {
       appId: "1:608464027335:web:6b8f04fbb00fdbaeb9c8e2",
     ),
   );
-
   FirebaseMessaging.onBackgroundMessage(firebaseBackgroundHandler);
-
-  await FirebaseMessaging.instance.requestPermission(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    print("Foreground notif: ${message.notification?.title}");
-  });
-
   runApp(const MyApp());
 }
 
@@ -51,7 +34,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      /// splash screen pertama
+      // 🔥 GANTI ke splash
       initialRoute: '/splash',
 
       routes: {
