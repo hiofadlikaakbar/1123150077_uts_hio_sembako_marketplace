@@ -1,5 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+Future<UserCredential?> signInWithGoogle() async {
+  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+  if (googleUser == null) return null;
+
+  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
+  );
+
+  return await FirebaseAuth.instance.signInWithCredential(credential);
+}
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -142,6 +158,39 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
+                const SizedBox(height: 10),
+
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
+                      final user = await signInWithGoogle();
+
+                      if (user != null) {
+                        Navigator.pushReplacementNamed(context, '/home');
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Login Google berhasil"),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Login Google dibatalkan"),
+                          ),
+                        );
+                      }
+                    },
+                    icon: const Icon(Icons.login),
+                    label: const Text("Login dengan Google"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors
+                          .redAccent, // opsional biar beda dari login biasa
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 20),
 
                 Row(
