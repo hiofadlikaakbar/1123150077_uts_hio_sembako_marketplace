@@ -23,6 +23,7 @@ void main() async {
     ),
   );
   FirebaseMessaging.onBackgroundMessage(firebaseBackgroundHandler);
+  await FirebaseMessaging.instance.requestPermission();
   runApp(const MyApp());
 }
 

@@ -12,7 +12,20 @@
           "package_name": "com.hio.marketplace"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "608464027335-qsuo7ftkfj2sbhk6amb51lsrtq09chim.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hio.marketplace",
+            "certificate_hash": "58de3bdcf66087e16069e4a22436baa1d3847383"
+          }
+        },
+        {
+          "client_id": "608464027335-hjjsr519nsfl0norjnv697b1c2pnrbn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAPmwFZU6KS5olY0palnK-vHiPmyT1gPPA"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608464027335-hjjsr519nsfl0norjnv697b1c2pnrbn8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
