@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
+import '../../models/product_models.dart';
 
 class CartProvider extends ChangeNotifier {
-  final List<Map<String, dynamic>> _items = [];
+  final List<Product> _items = [];
 
-  List<Map<String, dynamic>> get items => _items;
+  List<Product> get items => _items;
 
-  void addToCart(Map<String, dynamic> product) {
+  void addToCart(Product product) {
     _items.add(product);
     notifyListeners();
   }
 
-  void removeFromCart(int index) {
-    _items.removeAt(index);
+  void removeFromCart(Product product) {
+    _items.remove(product);
     notifyListeners();
   }
 
   double get totalPrice {
-    double total = 0;
-    for (var item in _items) {
-      total += item['price'];
-    }
-    return total;
+    return _items.fold(0, (sum, item) => sum + item.price);
   }
 
   void clearCart() {
