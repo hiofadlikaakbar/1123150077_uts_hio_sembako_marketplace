@@ -27,10 +27,10 @@ class ProductCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        color: const Color(0xFFFF4040),
+        color: const Color(0xFFFF5252), // 🔥 merah lebih soft
         boxShadow: [
           BoxShadow(
-            color: Colors.red.withOpacity(0.3),
+            color: Colors.red.withOpacity(0.2),
             blurRadius: 6,
             offset: const Offset(2, 3),
           ),
@@ -48,7 +48,7 @@ class ProductCard extends StatelessWidget {
                 Stack(
                   children: [
                     AspectRatio(
-                      aspectRatio: 1.2, // 🔥 bikin proporsional
+                      aspectRatio: 1.2,
                       child: Image.network(image, fit: BoxFit.cover),
                     ),
 
@@ -66,7 +66,7 @@ class ProductCard extends StatelessWidget {
                           child: const Icon(
                             Icons.add_shopping_cart,
                             size: 16,
-                            color: Color(0xFFFF4040),
+                            color: Color(0xFFFF5252),
                           ),
                         ),
                       ),
@@ -74,93 +74,28 @@ class ProductCard extends StatelessWidget {
                   ],
                 ),
 
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
-                        ),
-                      ),
-
-                      const SizedBox(height: 4),
-
-                      Text(
-                        price,
-                        style: const TextStyle(
-                          color: Colors.yellowAccent,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-
-                      const SizedBox(height: 4),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.star,
-                                size: 13,
-                                color: Colors.orange,
-                              ),
-                              const SizedBox(width: 3),
-                              Text(
-                                rating.toString(),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 11,
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          Text(
-                            "Stok $stock",
-                            style: const TextStyle(
-                              color: Colors.white70,
-                              fontSize: 10,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 4),
-
-                      /// CATEGORY
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white24,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(
-                          category,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 6,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        /// NAME
+                        Text(
+                          name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+
+                
       ),
     );
   }
