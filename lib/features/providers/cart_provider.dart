@@ -9,4 +9,9 @@ class CartProvider extends ChangeNotifier {
     _items.add(product);
     notifyListeners();
   }
+
+  void removeFromCart(int index) {
+    _items.removeAt(index);
+    notifyListeners();
+  }
 }
