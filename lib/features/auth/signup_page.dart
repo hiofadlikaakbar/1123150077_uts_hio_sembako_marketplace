@@ -40,9 +40,15 @@ class _SignupPageState extends State<SignupPage> {
         "createdAt": Timestamp.now(),
       });
 
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Signup berhasil")));
+      await userCredential.user!.sendEmailVerification();
+
+      await _auth.signOut();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Akun berhasil dibuat! Cek email untuk verifikasi."),
+        ),
+      );
 
       Navigator.pushReplacementNamed(context, '/login');
     } catch (e) {
