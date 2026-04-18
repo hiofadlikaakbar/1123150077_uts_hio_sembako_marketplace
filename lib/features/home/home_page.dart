@@ -43,7 +43,6 @@ class _HomePageState extends State<HomePage> {
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         actions: [
-          /// 🔥 CART BUTTON
           IconButton(
             icon: const Icon(Icons.shopping_cart),
             onPressed: () {
