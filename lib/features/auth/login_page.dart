@@ -32,46 +32,29 @@ class _LoginPageState extends State<LoginPage> {
 
   bool isLoading = false;
 
-  Future<void> login() async {
-    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Email dan password wajib diisi")),
-      );
-      return;
-    }
-
-    setState(() => isLoading = true);
-
+  Future<void> loginEmail() async {
     try {
-      await _auth.signInWithEmailAndPassword(
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      Navigator.pushReplacementNamed(context, '/home');
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Login berhasil")));
-    } on FirebaseAuthException catch (e) {
-      String message = "Terjadi kesalahan";
 
-      if (e.code == 'user-not-found') {
-        message = "Email tidak ditemukan";
-      } else if (e.code == 'wrong-password') {
-        message = "Password salah";
-      } else if (e.code == 'invalid-email') {
-        message = "Format email tidak valid";
+      final user = credential.user;
+
+      if (user != null) {
+        await user.reload(); // 🔥 refresh data
+        if (!user.emailVerified) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Email belum diverifikasi!")),
+          );
+          return;
+        }
+
+        Navigator.pushReplacementNamed(context, '/home');
       }
-
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(message)));
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Error: $e")));
+      print("LOGIN ERROR: $e");
     }
-
-    setState(() => isLoading = false);
   }
 
   @override
@@ -151,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: isLoading ? null : login,
+                    onPressed: isLoading ? null : loginEmail,
                     child: isLoading
                         ? const CircularProgressIndicator(color: Colors.white)
                         : const Text("Login"),
