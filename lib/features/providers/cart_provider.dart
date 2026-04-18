@@ -33,4 +33,48 @@ class CartProvider extends ChangeNotifier {
     saveCart();
     notifyListeners();
   }
+
+  Future<void> saveCart() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final List<String> cartJson = _items
+        .map(
+          (item) => jsonEncode({
+            'id': item.id,
+            'name': item.name,
+            'price': item.price,
+            'rating': item.rating,
+            'stock': item.stock,
+            'category': item.category,
+            'description': item.description,
+            'image': item.image,
+          }),
+        )
+        .toList();
+
+    await prefs.setStringList('cart', cartJson);
+  }
+
+  Future<void> loadCart() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String>? cartJson = prefs.getStringList('cart');
+
+    if (cartJson != null) {
+      _items = cartJson.map((item) {
+        final data = jsonDecode(item);
+        return Product(
+          id: data['id'],
+          name: data['name'],
+          price: (data['price']).toDouble(),
+          rating: (data['rating']).toDouble(),
+          stock: data['stock'],
+          category: data['category'],
+          description: data['description'],
+          image: data['image'],
+        );
+      }).toList();
+
+      notifyListeners();
+    }
+  }
 }
