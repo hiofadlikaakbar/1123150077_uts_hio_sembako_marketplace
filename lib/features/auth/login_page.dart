@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
       final user = credential.user;
 
       if (user != null) {
-        await user.reload(); // 🔥 refresh data
+        await user.reload();
         if (!user.emailVerified) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Email belum diverifikasi!")),
