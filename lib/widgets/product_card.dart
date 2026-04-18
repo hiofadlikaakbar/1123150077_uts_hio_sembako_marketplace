@@ -26,22 +26,18 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        gradient: const LinearGradient(
-          colors: [Color(0xFF1976D2), Color(0xFF42A5F5)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        borderRadius: BorderRadius.circular(14),
+        color: const Color(0xFFFF4040),
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.withOpacity(0.3),
-            blurRadius: 8,
-            offset: const Offset(2, 4),
+            color: Colors.red.withOpacity(0.3),
+            blurRadius: 6,
+            offset: const Offset(2, 3),
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(14),
         child: Material(
           color: Colors.transparent,
           child: InkWell(
@@ -49,16 +45,17 @@ class ProductCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// 🔥 IMAGE + BUTTON CART
+              
                 Stack(
                   children: [
-                    SizedBox(
-                      height: 110,
-                      width: double.infinity,
-                      child: Image.network(image, fit: BoxFit.cover),
+                    AspectRatio(
+                      aspectRatio: 1.2, // 🔥 bikin proporsional
+                      child: Image.network(
+                        image,
+                        fit: BoxFit.cover,
+                      ),
                     ),
 
-                    /// 🔥 BUTTON CART
                     Positioned(
                       right: 8,
                       top: 8,
@@ -66,14 +63,14 @@ class ProductCard extends StatelessWidget {
                         onTap: onTap,
                         child: Container(
                           padding: const EdgeInsets.all(6),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
                           ),
                           child: const Icon(
                             Icons.add_shopping_cart,
-                            size: 18,
-                            color: Colors.blue,
+                            size: 16,
+                            color: Color(0xFFFF4040),
                           ),
                         ),
                       ),
@@ -81,99 +78,11 @@ class ProductCard extends StatelessWidget {
                   ],
                 ),
 
-                /// 🔥 CONTENT
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        /// NAME
-                        Text(
-                          name,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-
-                        const SizedBox(height: 6),
-
-                        /// PRICE
-                        Text(
-                          price,
-                          style: const TextStyle(
-                            color: Colors.yellowAccent,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                          ),
-                        ),
-
-                        const SizedBox(height: 6),
-
-                        /// RATING
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.star,
-                              size: 14,
-                              color: Colors.orange,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              rating.toString(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const Spacer(),
-
-                        /// STOCK + CATEGORY
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Stok: $stock",
-                              style: const TextStyle(
-                                color: Colors.white70,
-                                fontSize: 11,
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.white24,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Text(
-                                category,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+        
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      
+                  
