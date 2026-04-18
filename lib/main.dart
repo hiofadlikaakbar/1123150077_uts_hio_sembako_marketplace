@@ -7,6 +7,7 @@ import './features/providers/cart_provider.dart';
 import 'features/auth/signup_page.dart';
 import 'features/splash/splash_screen.dart';
 import 'features/home/home_page.dart';
+import 'features/cart/cart_page.dart';
 
 Future<void> firebaseBackgroundHandler(RemoteMessage message) async {
   print("Background notif: ${message.notification?.title}");
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignupPage(),
         '/home': (context) => const HomePage(),
+        '/cart': (context) => const CartPage(),
       },
     );
   }
