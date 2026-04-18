@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'features/auth/login_page.dart';
+import 'package:provider/provider.dart';
+import './features/providers/cart_provider.dart';
 import 'features/auth/signup_page.dart';
 import 'features/splash/splash_screen.dart';
 import 'features/home/home_page.dart';
@@ -24,7 +26,12 @@ void main() async {
   );
   FirebaseMessaging.onBackgroundMessage(firebaseBackgroundHandler);
   await FirebaseMessaging.instance.requestPermission();
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => CartProvider())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
