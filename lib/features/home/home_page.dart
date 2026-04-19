@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                         docId: product.id,
                         image: product.image,
                         name: product.name,
-                        price: "Rp ${product.price}",
+                        price: "Rp ${product.price.toStringAsFixed(0)}",
                         category: product.category,
                         stock: product.stock,
                         rating: product.rating,
