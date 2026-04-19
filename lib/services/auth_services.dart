@@ -23,3 +23,28 @@ class AuthService {
           .millisecondsSinceEpoch,
       "iss": "marketplace-app",
     };
+
+    String encode(Map<String, dynamic> data) {
+      return base64Url.encode(utf8.encode(jsonEncode(data)));
+    }
+
+    final encodedHeader = encode(header);
+    final encodedPayload = encode(payload);
+
+    final signature = base64Url.encode(
+      utf8.encode("$encodedHeader.$encodedPayload.secret_key"),
+    );
+
+    return "$encodedHeader.$encodedPayload.$signature";
+  }
+
+  static Future<void> saveJWT(String jwt) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("jwt", jwt);
+  }
+
+  static Future<String?> getJWT() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString("jwt");
+  }
+}
