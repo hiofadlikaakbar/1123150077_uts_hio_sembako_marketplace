@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '../../services/auth_services.dart';
 
 Future<UserCredential?> signInWithGoogle() async {
   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -33,6 +34,8 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
 
   Future<void> loginEmail() async {
+    setState(() => isLoading = true);
+
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
@@ -43,18 +46,35 @@ class _LoginPageState extends State<LoginPage> {
 
       if (user != null) {
         await user.reload();
+
         if (!user.emailVerified) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Email belum diverifikasi!")),
           );
+          setState(() => isLoading = false);
           return;
+        }
+
+        final firebaseToken = await AuthService.getFirebaseToken();
+
+        if (firebaseToken != null) {
+          final jwt = await AuthService.sendTokenToBackend(firebaseToken);
+          await AuthService.saveJWT(jwt);
+
+          print("JWT: $jwt");
         }
 
         Navigator.pushReplacementNamed(context, '/home');
       }
     } catch (e) {
       print("LOGIN ERROR: $e");
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Login gagal: $e")));
     }
+
+    setState(() => isLoading = false);
   }
 
   @override
