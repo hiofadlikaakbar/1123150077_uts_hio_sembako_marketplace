@@ -135,7 +135,19 @@ class _HomePageState extends State<HomePage> {
                         category: product.category,
                         stock: product.stock,
                         rating: product.rating,
-                        onTap: () {
+                        onTap: () async {
+                          if (product.stock <= 0) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Stok habis")),
+                            );
+                            return;
+                          }
+
+                          await FirebaseFirestore.instance
+                              .collection('products')
+                              .doc(product.id)
+                              .update({'stock': product.stock - 1});
+
                           Provider.of<CartProvider>(
                             context,
                             listen: false,

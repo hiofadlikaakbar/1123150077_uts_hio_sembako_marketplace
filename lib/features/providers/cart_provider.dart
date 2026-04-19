@@ -13,19 +13,26 @@ class CartProvider extends ChangeNotifier {
   }
 
   void addToCart(Product product) {
-    _items.add(product);
+    final index = _items.indexWhere((item) => item.id == product.id);
+
+    if (index != -1) {
+      _items[index].quantity++;
+    } else {
+      _items.add(product);
+    }
+
     saveCart();
     notifyListeners();
   }
 
   void removeFromCart(Product product) {
-    _items.remove(product);
+    _items.removeWhere((item) => item.id == product.id);
     saveCart();
     notifyListeners();
   }
 
   double get totalPrice {
-    return _items.fold(0, (sum, item) => sum + item.price);
+    return _items.fold(0, (sum, item) => sum + (item.price * item.quantity));
   }
 
   void clearCart() {
@@ -37,20 +44,19 @@ class CartProvider extends ChangeNotifier {
   Future<void> saveCart() async {
     final prefs = await SharedPreferences.getInstance();
 
-    final List<String> cartJson = _items
-        .map(
-          (item) => jsonEncode({
-            'id': item.id,
-            'name': item.name,
-            'price': item.price,
-            'rating': item.rating,
-            'stock': item.stock,
-            'category': item.category,
-            'description': item.description,
-            'image': item.image,
-          }),
-        )
-        .toList();
+    final List<String> cartJson = _items.map((item) {
+      return jsonEncode({
+        'id': item.id,
+        'name': item.name,
+        'price': item.price,
+        'rating': item.rating,
+        'stock': item.stock,
+        'quantity': item.quantity,
+        'category': item.category,
+        'description': item.description,
+        'image': item.image,
+      });
+    }).toList();
 
     await prefs.setStringList('cart', cartJson);
   }
@@ -62,12 +68,14 @@ class CartProvider extends ChangeNotifier {
     if (cartJson != null) {
       _items = cartJson.map((item) {
         final data = jsonDecode(item);
+
         return Product(
           id: data['id'],
           name: data['name'],
           price: (data['price']).toDouble(),
           rating: (data['rating']).toDouble(),
           stock: data['stock'],
+          quantity: data['quantity'] ?? 1,
           category: data['category'],
           description: data['description'],
           image: data['image'],
