@@ -1,16 +1,5 @@
-# marketplace_uts
+<h2>🏗️ Arsitektur Aplikasi</h2> <p> Aplikasi ini menggunakan pendekatan <strong>modular architecture</strong> dengan pemisahan yang jelas antara UI, logic, dan data. </p> <p> Struktur utama: </p> <pre> features/ → Berisi UI berdasarkan fitur (auth, home, cart, dll) models/ → Representasi data (Product Model) services/ → Handling API & Firebase providers/ → State management (Provider + ChangeNotifier) widgets/ → Komponen UI reusable </pre> <p> Pendekatan ini membuat aplikasi lebih mudah dikembangkan, scalable, dan maintainable. </p>
 
-A new Flutter project.
+<h2>🎥 Demo Fitur</h2> <h3>🔐 Register + Verify Email</h3> <p> User melakukan registrasi menggunakan email dan password, kemudian wajib melakukan verifikasi email sebelum bisa login. </p> <h3>🔑 Login</h3> <p> User login menggunakan akun yang sudah diverifikasi. Sistem akan mengambil Firebase token dan mengirimkannya ke backend untuk mendapatkan JWT. </p> <h3>🛍️ Catalog</h3> <p> Menampilkan daftar produk dari API / dummy data, lengkap dengan nama dan harga produk. </p> <h3>🧺 Cart</h3> <p> User dapat menambahkan dan menghapus produk dari keranjang. Total harga akan ter-update secara otomatis. </p> <h3>💳 Checkout</h3> <p> Menampilkan ringkasan belanja dan total harga, serta simulasi proses checkout tanpa payment gateway. </p>
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<h2>💡 Penjelasan Code</h2> <h3>📦 Provider</h3> <p> State management menggunakan <strong>Provider</strong> dengan <strong>ChangeNotifier</strong>. Setiap perubahan state (misalnya cart) akan memanggil <code>notifyListeners()</code> untuk memperbarui UI secara realtime. </p> <h3>🔄 State Flow</h3> <p> Alur state: </p> <pre> User Action → Provider → Update State → notifyListeners() → UI Rebuild </pre> <p> Contoh: saat user menambahkan produk ke cart, data akan disimpan di <code>cart_provider</code> lalu UI otomatis update. </p> <h3>🌐 API Integration</h3> <p> Aplikasi menggunakan kombinasi Firebase dan backend: </p> <pre> Login Firebase → Ambil Token → Kirim ke Backend → Terima JWT → Akses API </pre> <p> JWT digunakan sebagai autentikasi untuk request API berikutnya seperti mengambil data produk. </p>
