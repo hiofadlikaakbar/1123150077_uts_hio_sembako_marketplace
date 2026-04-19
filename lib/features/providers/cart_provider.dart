@@ -41,6 +41,31 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void increaseQty(Product product) {
+    final index = _items.indexWhere((item) => item.id == product.id);
+
+    if (index != -1) {
+      _items[index].quantity++;
+      saveCart();
+      notifyListeners();
+    }
+  }
+
+  void decreaseQty(Product product) {
+    final index = _items.indexWhere((item) => item.id == product.id);
+
+    if (index != -1) {
+      if (_items[index].quantity > 1) {
+        _items[index].quantity--;
+      } else {
+        _items.removeAt(index);
+      }
+
+      saveCart();
+      notifyListeners();
+    }
+  }
+
   Future<void> saveCart() async {
     final prefs = await SharedPreferences.getInstance();
 
