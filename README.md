@@ -96,3 +96,21 @@ Login Firebase → Ambil Token → Kirim ke Backend → Terima JWT → Akses API
 <p>
 JWT digunakan sebagai autentikasi untuk request API berikutnya seperti mengambil data produk.
 </p>
+
+<hr/>
+
+<h2>Demo Video</h2>
+
+<p>
+Berikut adalah demo singkat aplikasi Semangat Mandiri yang menampilkan alur utama dari register hingga checkout:
+</p>
+
+<div align="center">
+  <a href="https://github.com/user-attachments/assets/VIDEO_ID">
+    <img src="https://img.youtube.com/vi/VIDEO_THUMBNAIL/0.jpg" width="500"/>
+  </a>
+</div>
+
+<p align="center">
+Tekan video untuk melihat demo
+</p>
