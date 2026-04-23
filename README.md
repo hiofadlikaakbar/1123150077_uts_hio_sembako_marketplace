@@ -90,7 +90,7 @@ Contoh: saat user menambahkan produk ke cart, data disimpan di <code>cart_provid
 <h3>API Integration</h3>
 
 <pre>
-Login Firebase → Ambil Token → Kirim ke Backend → Terima JWT → Akses API
+Login Firebase → Ambil Token → Kirim ke Backend → Terima JWT
 </pre>
 
 <p>
