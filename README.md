@@ -101,14 +101,32 @@ JWT digunakan sebagai autentikasi untuk request API berikutnya seperti mengambil
 
 <h2>Demo Video</h2>
 
-<p>
-Berikut adalah demo singkat aplikasinya (Masih Dalam Tahap Pembuatan Video)
-</p>
+<p>Berikut adalah demo aplikasi dalam 2 bagian showcase.</p>
 
-<div align="center">
-  <a href="https://github.com/user-attachments/assets/VIDEO_ID">
-    <img src="https://img.youtube.com/vi/VIDEO_THUMBNAIL/0.jpg" width="500"/>
-  </a>
+<div style="display:flex; gap:40px; flex-wrap:wrap; justify-content:center;">
+
+  <div style="max-width:400px;">
+    <h3>Part 1 - Penjelasan Source Code</h3>
+    <p>
+      Pada video ini dijelaskan secara lengkap struktur project secara detail mulai dari login sampai main
+    </p>
+    <a href="https://www.youtube.com/watch?v=Gt7qjDcqYOo" target="_blank">
+      Video Part 1
+    </a>
+  </div>
+
+
+  <div style="max-width:400px;">
+    <h3>Part 2 - Demo Aplikasi di HP</h3>
+    <p>
+      Pada video ini menampilkan demo aplikasi secara langsung di perangkat mobile, 
+      mulai dari login, register, catalog, cart, hingga checkout flow.
+    </p>
+    <a href="https://www.youtube.com/watch?v=7Q6aHUW4Zeg" target="_blank">
+      Video Part 2
+    </a>
+  </div>
+
 </div>
 
 
