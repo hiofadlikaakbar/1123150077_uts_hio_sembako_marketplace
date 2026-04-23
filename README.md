@@ -102,7 +102,7 @@ JWT digunakan sebagai autentikasi untuk request API berikutnya seperti mengambil
 <h2>Demo Video</h2>
 
 <p>
-Berikut adalah demo singkat aplikasi Semangat Mandiri yang menampilkan alur utama dari register hingga checkout:
+Berikut adalah demo singkat aplikasinya (Masih Dalam Tahap Pembuatan Video)
 </p>
 
 <div align="center">
@@ -111,6 +111,4 @@ Berikut adalah demo singkat aplikasi Semangat Mandiri yang menampilkan alur utam
   </a>
 </div>
 
-<p align="center">
-Tekan video untuk melihat demo
-</p>
+
